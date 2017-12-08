@@ -90,10 +90,10 @@ class ClientBehaviorThread(threading.Thread):
                     break
 
                 data = input()
+                self.conn.send(data.encode())
                 logf = open("OCCP-Log-for-" + usr + ".txt", "a")
                 logf.write(time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime()) + (" - You: " + data + "\n").encode('utf-8').decode('utf-8'))
                 logf.close()
-                self.conn.send(data.encode())
 
                 if data == "/disconnect":
                     try:
