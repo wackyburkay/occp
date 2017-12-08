@@ -54,6 +54,7 @@ class ClientHandlerThread(threading.Thread):
         print("New handler thread started for client ", ip, ":", port)
 
     def run(self):
+        global busylist
         global quitted
         camefromregister = 0
         notregisteredq = False
@@ -161,6 +162,8 @@ class ClientHandlerThread(threading.Thread):
 
                 elif data == "PCRECVD":
                     tmpip = self.conn.recv(2048).decode()
+                    print(tmpip)
+                    time.sleep(2)
 
                     for ipo in busylist:
                         if ipo[3] == tmpip:
@@ -201,6 +204,7 @@ class ClientHandlerThread(threading.Thread):
                     onlinelist.remove(peerchat_peer)
                     busylist.append(registry_on)
                     busylist.append(peerchat_peer)
+                    print(busylist)
                     logfile = open("OCCP-SERVER-LOG.txt", "a")
                     logfile.write("LOG:PEER_CHAT_STARTED-p1:" + registry_on[0] + "-p2:" + peerchat_peer[0] + "\n")
                     logfile.close()
