@@ -50,7 +50,8 @@ class ServerBehaviorThread(threading.Thread):
                     raise Exception
                 else:
                     logf = open("OCCP-Log-for-" + usr + ".txt", "a")
-                    logf.write(time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime()) + " - Peer says: " + data + "\n")
+                    fmt = u'%d\u200f/%m\u200f/%Y %H:%M:%S'
+                    logf.write(time.strftime(fmt.encode('utf-8'), time.gmtime()).decode('utf-8') + " - Peer says: " + data + "\n")
                     logf.close()
                     print("Peer says: ", data)
             except:
@@ -91,7 +92,8 @@ class ClientBehaviorThread(threading.Thread):
 
                 data = input()
                 logf = open("OCCP-Log-for-" + usr + ".txt", "a")
-                logf.write(time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime()) + " - You: " + data + "\n")
+                fmt = u'%d\u200f/%m\u200f/%Y %H:%M:%S'
+                logf.write(time.strftime(fmt.encode('utf-8'), time.gmtime()).decode('utf-8') + " - You: " + data + "\n")
                 logf.close()
                 self.conn.send(data.encode())
 
