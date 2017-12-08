@@ -154,6 +154,12 @@ class ClientHandlerThread(threading.Thread):
                     if(peerchat_peer not in onlinelist) and (registry_on not in onlinelist):
                         onlinelist.append(peerchat_peer)
                         onlinelist.append(registry_on)
+
+                    if(peerchat_peer in busylist):
+                        busylist.remove(peerchat_peer)
+                    if(registry_on in busylist):
+                        busylist.remove(registry_on)
+
                     logfile = open("OCCP-SERVER-LOG.txt", "a")
                     logfile.write("LOG:PEER_CHAT_ENDED-p1:" + registry_on[0] + "-p2:" + peerchat_peer[0] + "\n")
                     logfile.close()
@@ -204,7 +210,6 @@ class ClientHandlerThread(threading.Thread):
                     onlinelist.remove(peerchat_peer)
                     busylist.append(registry_on)
                     busylist.append(peerchat_peer)
-                    print(busylist)
                     logfile = open("OCCP-SERVER-LOG.txt", "a")
                     logfile.write("LOG:PEER_CHAT_STARTED-p1:" + registry_on[0] + "-p2:" + peerchat_peer[0] + "\n")
                     logfile.close()
